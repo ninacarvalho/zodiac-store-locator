@@ -12,6 +12,9 @@ type CustomInfoWindowProps = {
 const DEFAULT_WIDTH = 255;
 const DEFAULT_HEIGHT = 170;
 
+const TRIANGLE_WIDTH = 20;
+const TRIANGLE_HEIGHT = 20;
+
 const styles = {
   wrapper: (scale: number): React.CSSProperties => ({
     display: 'flex',
@@ -30,6 +33,12 @@ const styles = {
     pointerEvents: 'auto',
     background: 'white',
   }),
+  tail: {
+    position: 'absolute' as const,
+    left: '50%',
+    width: 0,
+    height: 0,
+  },
 };
 
 export function CustomInfoWindow({
@@ -45,6 +54,14 @@ export function CustomInfoWindow({
         <div style={styles.containerBase(width, height, scale)}>
           {children}
         </div>
+        <div style={{
+          ...styles.tail,
+          borderTop: `${TRIANGLE_HEIGHT}px solid white`,
+          bottom: -TRIANGLE_HEIGHT,
+          marginLeft: -TRIANGLE_WIDTH,
+          borderLeft: `${TRIANGLE_WIDTH}px solid transparent`,
+          borderRight: `${TRIANGLE_WIDTH}px solid transparent`,
+        }} />
       </div>
     </OverlayView>
   );
