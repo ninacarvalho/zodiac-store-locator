@@ -1,3 +1,4 @@
+import { useThemeColor } from '@/hooks/useThemeColor';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { StarRating } from '../../../components/ui/StarRating';
@@ -12,20 +13,24 @@ interface StoreCellProps {
 const THUMBNAIL_SIZE = 85;
 
 const StoreCell: React.FC<StoreCellProps> = ({ store, showDescription = false, onPress }) => {
+  const textColor = useThemeColor({}, 'text');
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.wrapper}>
       <View style={styles.thumbnailContainer}>
         <Image source={{ uri: store.imageUrl }} style={styles.thumbnail} />
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{store.name}</Text>
+        <Text style={[styles.title, { color: textColor }]}>{store.name}</Text>
         <View style={styles.ratingRow}>
-          <Text style={styles.ratingValue}>{store.rating}</Text>
+          <Text style={[styles.ratingValue, { color: textColor }]}>{store.rating}</Text>
           <StarRating rating={store.rating} />
         </View>
         {showDescription && (
           <ScrollView style={styles.scrollBox} contentContainerStyle={styles.scrollContent}>
-            <Text style={styles.description}>{store.description}</Text>
+            <Text style={[styles.description, { color: textColor }]}>
+              {store.description}
+            </Text>
           </ScrollView>
         )}
       </View>
