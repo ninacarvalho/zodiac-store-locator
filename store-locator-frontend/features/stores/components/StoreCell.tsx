@@ -1,16 +1,17 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { StarRating } from '../../../components/ui/StarRating';
 import { Store } from '../types';
 
 interface StoreCellProps {
   store: Store;
+  showDescription?: boolean;
   onPress?: () => void;
 }
 
 const THUMBNAIL_SIZE = 85;
 
-const StoreCell: React.FC<StoreCellProps> = ({ store, onPress }) => {
+const StoreCell: React.FC<StoreCellProps> = ({ store, showDescription = false, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.wrapper}>
       <View style={styles.thumbnailContainer}>
@@ -22,6 +23,11 @@ const StoreCell: React.FC<StoreCellProps> = ({ store, onPress }) => {
           <Text style={styles.ratingValue}>{store.rating}</Text>
           <StarRating rating={store.rating} />
         </View>
+        {showDescription && (
+          <ScrollView style={styles.scrollBox} contentContainerStyle={styles.scrollContent}>
+            <Text style={styles.description}>{store.description}</Text>
+          </ScrollView>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -29,6 +35,8 @@ const StoreCell: React.FC<StoreCellProps> = ({ store, onPress }) => {
 
 const styles = StyleSheet.create({
   wrapper: {
+    flex: 1,
+    minHeight: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
@@ -47,6 +55,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     justifyContent: 'flex-start',
+    maxHeight: 160,
   },
   title: {
     fontSize: 18,
@@ -59,6 +68,16 @@ const styles = StyleSheet.create({
   },
   ratingValue: {
     fontSize: 18,
+  },
+  scrollBox: {
+    marginTop: 4,
+  },
+  scrollContent: {
+    paddingRight: 8,
+  },
+  description: {
+    fontSize: 15,
+    lineHeight: 18,
   },
 });
 
