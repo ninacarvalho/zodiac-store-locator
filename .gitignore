@@ -1,0 +1,16 @@
+# React Native / Node
+node_modules/
+.expo/
+dist/
+web-build/
+*.tsbuildinfo
+
+# Java / Maven
+target/
+*.log
+
+# macOS
+.DS_Store
+
+# Other
+.env*
