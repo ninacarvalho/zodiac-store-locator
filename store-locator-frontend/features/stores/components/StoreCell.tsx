@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StarRating } from '../../../components/ui/StarRating';
 import { Store } from '../types';
 
 interface StoreCellProps {
@@ -17,6 +18,10 @@ const StoreCell: React.FC<StoreCellProps> = ({ store, onPress }) => {
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{store.name}</Text>
+        <View style={styles.ratingRow}>
+          <Text style={styles.ratingValue}>{store.rating}</Text>
+          <StarRating rating={store.rating} />
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -46,6 +51,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     marginBottom: 4,
+  },
+  ratingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  ratingValue: {
+    fontSize: 18,
   },
 });
 
