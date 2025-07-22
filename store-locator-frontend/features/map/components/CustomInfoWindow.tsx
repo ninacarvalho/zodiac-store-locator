@@ -1,3 +1,4 @@
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { OverlayView } from '@react-google-maps/api';
 import React from 'react';
 
@@ -31,7 +32,6 @@ const styles = {
     padding: 12,
     overflowY: 'auto',
     pointerEvents: 'auto',
-    background: 'white',
   }),
   tail: {
     position: 'absolute' as const,
@@ -48,20 +48,27 @@ export function CustomInfoWindow({
   scale = 1.0,
   children,
 }: CustomInfoWindowProps) {
+  const backgroundColor = useThemeColor({}, 'background');
+
+  const containerStyle: React.CSSProperties = {
+    ...styles.containerBase(width, height, scale),
+    backgroundColor,
+  };
+
+  const tailStyle: React.CSSProperties = {
+    ...styles.tail,
+    borderTop: `${TRIANGLE_HEIGHT}px solid ${backgroundColor}`,
+    bottom: -TRIANGLE_HEIGHT,
+    marginLeft: -TRIANGLE_WIDTH,
+    borderLeft: `${TRIANGLE_WIDTH}px solid transparent`,
+    borderRight: `${TRIANGLE_WIDTH}px solid transparent`,
+  };
+
   return (
     <OverlayView position={position} mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}>
       <div style={styles.wrapper(scale)}>
-        <div style={styles.containerBase(width, height, scale)}>
-          {children}
-        </div>
-        <div style={{
-          ...styles.tail,
-          borderTop: `${TRIANGLE_HEIGHT}px solid white`,
-          bottom: -TRIANGLE_HEIGHT,
-          marginLeft: -TRIANGLE_WIDTH,
-          borderLeft: `${TRIANGLE_WIDTH}px solid transparent`,
-          borderRight: `${TRIANGLE_WIDTH}px solid transparent`,
-        }} />
+        <div style={containerStyle}>{children}</div>
+        <div style={tailStyle} />
       </div>
     </OverlayView>
   );
