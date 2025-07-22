@@ -1,18 +1,19 @@
 import { GoogleMap, InfoWindow, Marker } from '@react-google-maps/api';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Dimensions, Text, View } from 'react-native';
 import { useGoogleMap } from '../../hooks/useGoogleMaps';
 
+const { width, height } = Dimensions.get('window');
+
 const containerStyle = {
-  width: '400px',
-  height: '400px',
+  width: `${width}px`,
+  height: `${height}px`,
 };
 
 const center = { lat: 45.4046987, lng: 12.2472504 };
 
-function MyComponent() {
+const MapScreen = () => {
   const { isLoaded } = useGoogleMap();
-
   const [map, setMap] = React.useState<google.maps.Map | null>(null);
 
   const onLoad = React.useCallback((map: google.maps.Map) => {
@@ -42,9 +43,7 @@ function MyComponent() {
         </InfoWindow>
       </>
     </GoogleMap>
-  ) : (
-    <></>
-  );
-}
+  ) : null;
+};
 
-export default React.memo(MyComponent);
+export default React.memo(MapScreen);
