@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
-    padding: 8,
-    borderRadius: 12,
   },
   thumbnailContainer: {
     justifyContent: 'center',
@@ -76,6 +74,7 @@ const styles = StyleSheet.create({
   },
   scrollBox: {
     marginTop: 4,
+    // maxHeight: 110,
   },
   scrollContent: {
     paddingRight: 8,
